@@ -10,15 +10,15 @@ Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo de
 
 ## Integrantes
 
-Douglas Evangelista dos Santos
-Fernando Monteiro Barbosa de Jesus
-Laryssa Serra de Oliveira
-Leandro Moreira Gonçalves
-Rodrigo Zambon
-Vinicius Fortes de Morais Carvalho
+* Douglas Evangelista dos Santos
+* Fernando Monteiro Barbosa de Jesus
+* Laryssa Serra de Oliveira
+* Leandro Moreira Gonçalves
+* Rodrigo Zambon
+* Vinicius Fortes de Morais Carvalho
 
 
 ## Orientador
 
-* Nome completo do professor 1
+* Simone Fernandes Queiroz
 
