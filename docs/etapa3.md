@@ -8,7 +8,7 @@ Definir funcionalidades iniciais a serem desenvolvidas.
 ~~→ Problema mapeado | Solução proposta | Como será resolvida no sistema~~
 |Problema mapeado| Solução Proposta | Como Será Resolvido no Sistema|
 
-|Cadastro de clientes em planilhas| Cadastros dos clientes padronizados no sistema | Será criado a funcionalidade de registro de clientes no sistema 
+|Cadastro de clientes em planilhas| Cadastros dos clientes padronizados no sistema | Será criado a funcionalidade de registro de clientes no sistema|
 
 |Ordem de serviço criada em documento Word | criação de um sistema para criação de ordem de serviço | Clientes e empregados da empresa deverao criar as ordens de serviço no sistema para facilitar o gerenciamento das demandas|
 
