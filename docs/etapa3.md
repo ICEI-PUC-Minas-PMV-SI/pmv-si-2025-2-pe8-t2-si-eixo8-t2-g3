@@ -1,9 +1,10 @@
-#Conexão com o Plano de IC e Planejamento da Solução
+#Conexão com o Plano de IC e Planejamento da Solução<BR>
 #Orientações:
 
-Relembrar o KIT, as KIQs e os dados críticos do Plano de IC.
-Identificar o(s) processo(s) que serão resolvidos com a aplicação.
-Definir funcionalidades iniciais a serem desenvolvidas.
+Relembrar o KIT, as KIQs e os dados críticos do Plano de IC. <BR>
+Identificar o(s) processo(s) que serão resolvidos com a aplicação.<BR>
+Definir funcionalidades iniciais a serem desenvolvidas.<BR>
+
 ~~Criar um quadro-resumo com:~~
 ~~→ Problema mapeado | Solução proposta | Como será resolvida no sistema~~
 
@@ -16,9 +17,9 @@ Definir funcionalidades iniciais a serem desenvolvidas.
 #Levantamento de Requisitos e Modelagem Inicial
 #Orientações:
 
-Elaborar histórias de usuário
+Elaborar histórias de usuário<BR>
 
-~~Definir requisitos funcionais e não funcionais~~
+~~Definir requisitos funcionais e não funcionais~~ <BR>
 **Requisitos Funcionais**
 
 **RF01:** Cadastrar e manter clientes clientes
@@ -38,9 +39,13 @@ Elaborar histórias de usuário
 **RNF03:** Se o sistema cair, voltar a funcionar em até 8 horas; perder no máximo os dados do último dia; backups diários testados; monitoramento com alertas.
 
 **RNF04:** Atender à LGPD; revisar riscos de privacidade antes de entrar no ar; contratos com fornecedores que tratam dados.  ****
+
+
 Escolher ferramentas/plataformas.
 Construir Diagrama de caso de uso
+
 ~~Desenvolver esboço do banco de dados (modelo ER)~~
+**Modelo de Entidade Relacional**
 <img width="533" height="417" alt="image" src="https://github.com/user-attachments/assets/e7e41495-d210-439a-884d-3c35d5bd7ef6" />
 
 
@@ -50,11 +55,14 @@ Construir Diagrama de caso de uso
 
 ~~Desenvolver wireframes ou protótipo navegável.~~
 **Criação da Ordem de Serviço pelo Cliente**
-Clicar em ordem de Serviços
+
+Clicar em ordem de Serviços <BR>
 <img width="1069" height="1395" alt="image" src="https://github.com/user-attachments/assets/ade0b78a-4cba-4888-b2b9-e7bb8c1cb56c" />
-Digitar o CNPJ previamente cadastrado na Delta Coding Validar CNPJ e depois em prosseguir
+
+Digitar o CNPJ previamente cadastrado na Delta Coding Validar CNPJ e depois em prosseguir<BR>
 <img width="1053" height="1178" alt="image" src="https://github.com/user-attachments/assets/9a057f4a-cb7b-46b5-8123-0e3ccc4e2f1d" />
-Marcar a o equipamento, descrever o problema e depois e enviar OS.
+
+Marcar a o equipamento, descrever o problema e depois e enviar OS.<BR>
 <img width="1091" height="839" alt="image" src="https://github.com/user-attachments/assets/2808a3a9-d518-4a5f-a248-f35d2ef4de1a" />
 
 
@@ -62,15 +70,17 @@ Planejar a estrutura de navegação do sistema; o fluxo de telas, o armazenament
 #Preparação do Desenvolvimento
 #Orientações:
 
-Montar plano de execução: o que será implementado primeiro?
-Divisão das tarefas entre os integrantes.
-Início do desenvolvimento de partes estruturais do sistema.
+Montar plano de execução: o que será implementado primeiro? <BR>
+Divisão das tarefas entre os integrantes.<BR>
+Início do desenvolvimento de partes estruturais do sistema.<BR>
 
-#Geração de Relatórios ou Dashboards Internos
-#Objetivo: Demonstrar como o sistema auxilia na tomada de decisão estratégica, conforme as necessidades de Inteligência Competitiva levantadas no plano.
-#Orientações:
+#Geração de Relatórios ou Dashboards Internos<BR>
+#Objetivo: Demonstrar como o sistema auxilia na tomada de decisão estratégica, conforme as necessidades de Inteligência Competitiva levantadas no plano.<BR>
+#Orientações:<BR>
 
 ~~Configurar dentro do sistema relatórios gerenciais ou dashboards simples com visualizações relevantes.~~
+
+Dashboard
 <img width="1049" height="893" alt="image" src="https://github.com/user-attachments/assets/aed0ded4-80f8-400f-9dd1-be9e53c1ec60" />
 
 
