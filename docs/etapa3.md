@@ -6,14 +6,8 @@ Identificar o(s) processo(s) que serão resolvidos com a aplicação.
 Definir funcionalidades iniciais a serem desenvolvidas.
 ~~Criar um quadro-resumo com:~~
 ~~→ Problema mapeado | Solução proposta | Como será resolvida no sistema~~
-| Etapa         | Período                   | Atividades |
-|  :----:   |  :----:               | ----------- |
-| ETAPA 1       | 01/08/2025 - 07/09/2025   |[Definição da empresa e estudo do seu mercado, processos e sistemas](docs/etapa1.md) |
-| ETAPA 2       | 07/09/2025 - 05/10/2025   |[Plano de Inteligência Competitiva (IC)](docs/etapa2.md)  |
-| ETAPA 3       | 05/10/2025 - 02/11/2025   |[Desenvolvimento da solução de SI](docs/etapa3.md) |
-| ETAPA 4       | 02/11/2025 - 28/11/2025   |[Planejamento Estratégico de TI](docs/etapa4.md)  |
-| ETAPA 5       | 28/11/2025 - 07/12/2025   | [Apresentação do Projeto](docs/etapa5.md) |
-|Problema mapeado                           | Solução Proposta                                       | Como Será Resolvido no Sistema                                 |
+
+**|Problema mapeado                           | Solução Proposta                                       | Como Será Resolvido no Sistema                                 |**
 |Cadastro de clientes em planilhas          | Cadastros dos clientes padronizados no sistema         | Será criado a funcionalidade de registro de clientes no sistema|
 |Ordem de serviço criada em documento Word  | criação de um sistema para criação de ordem de serviço | Clientes e empregados da empresa deverao criar as ordens de serviço no sistema para facilitar o gerenciamento das demandas|
 |Falta ferramenta para visualização das ordens de serviços e manutenções | Dashboard para visualizar as ordens de serviços de manutenções | Crição de um dashboard com as informações do atualizadas no sistema|
