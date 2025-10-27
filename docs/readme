@@ -1,1 +1,141 @@
-Poste neste diretório todos os artefatos criados durante o desenvolvimento do TCC
+3 Auditoria e Melhoria Contínua 
+
+ 
+
+3.1 Conexão com o Plano de IC e Planejamento da Solução 
+
+Relembrar o KIT, as KIQs e os dados críticos do Plano de IC. 
+
+ 
+
+O projeto terá como funcionalidade inicial, essencial e simplificada (MVP), o Módulo de Gestão de Ordem de Serviço. 
+
+Este módulo será composto por três funcionalidades primárias, visando unificar as informações e melhorar o gerenciamento das demandas: 
+
+Cadastro de Clientes Completo: Permitirá adicionar, editar e consultar todas as informações necessárias dos clientes, formando a base de dados essencial para o sistema. 
+
+Criação e Rastreamento da OS: Será a ferramenta central para registrar novas Ordens de Serviço de forma digital e padronizada, garantindo que todas as informações de atendimento sejam unificadas em um só sistema. 
+
+Visualização Preliminar de Custos na OS: Integrará campos na Ordem de Serviço para permitir a visualização de custos associados ao serviço, como insumos e tempo, auxiliando a empresa a gerenciar melhor suas demandas e despesas. 
+
+Em resumo, a aplicação resolverá a dispersão de dados, iniciando pela digitalização e unificação do processo de Ordens de Serviço, conforme a necessidade urgente identificada. 
+
+ 
+
+	 
+
+   
+
+ 
+
+Quadro-resumo: 
+
+Problema mapeado 
+
+Solução Proposta 
+
+Como Será Resolvido no Sistema 
+
+Cadastro de clientes em planilhas 
+
+Cadastros dos clientes padronizados no sistema 
+
+Será criado a funcionalidade de registro de clientes no sistema 
+
+Ordem de serviço criada em documento Word 
+
+criação de um sistema para criação de ordem de serviço 
+
+Clientes e empregados da empresa deverão criar as ordens de serviço no sistema para facilitar o gerenciamento das demandas 
+
+Falta ferramenta para visualização das ordens de serviços e manutenções 
+
+Dashboard para visualizar as ordens de serviços de manutenções 
+
+Criação de um dashboard com as informações do atualizadas no sistema 
+
+ 
+
+ 
+
+3.2 Levantamento de Requisitos e Modelagem Inicial  
+
+ 
+
+Elaborar histórias de usuário 
+
+ 
+
+ 
+
+Requisitos Funcionais 
+
+RF01: Cadastrar e manter clientes clientes 
+
+RF02: Criar e manter ordem de serviço 
+
+RF03: Criar ordem de serviço pelo cliente diretamente no site. 
+
+RF04: Dashboards com KPIs 
+
+Requisitos Não Funcionais 
+
+RNF01: O sistema deve permitir o cliente acessar a criação de ordem de serviço pela web utilizando navegador informando apenas o CNPJ, somente clientes previamente cadastrados 
+
+RNF02: Deve possui uma boa usabilidade, para nao precisar dar treinamento para usuario 
+
+RNF03: Se o sistema cair, voltar a funcionar em até 8 horas; perder no máximo os dados do último dia; backups diários testados; monitoramento com alertas. 
+
+RNF04: Atender à LGPD; revisar riscos de privacidade antes de entrar no ar; contratos com fornecedores que tratam dados. 
+
+ 
+
+ 
+
+Escolher ferramentas/plataformas. 
+
+ 
+
+ 
+
+ 
+
+Diagrama de caso de uso 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Modelo de dados ER 
+
+ 
+
+ 
+
+3.3 Protótipo e Planejamento da Arquitetura   
+
+wireframes ou protótipo navegável. 
+
+Planejar a estrutura de navegação do sistema; o fluxo de telas, o armazenamento e acesso aos dados. 
+
+ 
+
+3.4 Preparação do Desenvolvimento     
+
+Orientações: 
+
+Montar plano de execução: o que será implementado primeiro? 
+
+Divisão das tarefas entre os integrantes. 
+
+Início do desenvolvimento de partes estruturais do sistema. 
+
+ 
+
+3.5 Geração de Relatórios ou Dashboards Internos     
+
+Dashboard 
