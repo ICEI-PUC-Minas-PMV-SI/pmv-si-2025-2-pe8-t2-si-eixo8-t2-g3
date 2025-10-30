@@ -1,13 +1,17 @@
-# Instruções de utilização
+# Delta Coding — Sistema de OS (Laravel MVC)
 
-## Instalação do Site
+Aplicação em **PHP (Laravel MVC)** com **MySQL** para **cadastro de clientes** e **abertura/gestão de Ordens de Serviço (OS)**.
 
-A prévia do sistema pode ser acessada em: https://gadodeouro-d1cc9.web.app
+- **Primeiro push:** 30/10/2025  
+- **Demo (produção):** <https://rodrigo.ia.br/dc/system/public/>
 
-O site em HTML/CSS/JS é um projeto estático, logo pode ser utilizado tanto em servidores...
+## Stack
+- **Laravel** 11.x (MVC padrão)  
+- **PHP** 8.2+ (recomendado)  
+- **MySQL/MariaDB**  
+- **Composer** 2.x
 
-## Histórico de versões
-
-### [0.1.0] - DD/MM/AAAA
-#### Adicionado
-- Adicionado ...
+## Funcionalidades
+- CRUD de **Clientes**  
+- CRUD de **Ordens de Serviço** (abertura, listagem, edição e acompanhamento)  
+- Layout básico seguindo convenções do **Laravel**
