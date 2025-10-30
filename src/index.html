@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<!-- For IE -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- For Resposive Device -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- For Window Tab Color -->
+		<!-- Chrome, Firefox OS and Opera -->
+		<meta name="theme-color" content="#061948">
+		<!-- Windows Phone -->
+		<meta name="msapplication-navbutton-color" content="#061948">
+		<!-- iOS Safari -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="#061948">
+		<title>Delta Coding</title>
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" sizes="56x56" href="images/fav-icon/icon.png">
+		<!-- Main style sheet -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<!-- responsive style sheet -->
+		<link rel="stylesheet" type="text/css" href="css/responsive.css">
+
+		<!-- Fix Internet Explorer ______________________________________-->
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="vendor/html5shiv.js"></script>
+			<script src="vendor/respond.js"></script>
+		<![endif]-->	
+	</head>
+
+	<body>
+        <!-- 1) Estilos base do widget -->
+            <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+
+            <!-- 2) Suas variáveis de tema (cores, dimensões, radius, etc.) -->
+            <style>
+            :root {
+                --chat--color-primary: #20B69E;
+                --chat--color-primary-shade-50: #20B69E;
+                --chat--color-primary-shade-100: #20B69E;
+                --chat--color-secondary: #20b69e;
+                --chat--color-secondary-shade-50: #1ca08a;
+                --chat--color-white: #ffffff;
+                --chat--color-light: #f2f4f8;
+                --chat--color-light-shade-50: #e6e9f1;
+                --chat--color-light-shade-100: #c2c5cc;
+                --chat--color-medium: #d2d4d9;
+                --chat--color-dark: #101330;
+                --chat--color-disabled: #777980;
+                --chat--color-typing: #404040;
+
+                --chat--spacing: 1rem;
+                --chat--border-radius: 0.25rem;
+                --chat--transition-duration: 0.15s;
+
+                --chat--border-radius: 16px;
+                --chat--window--width: 400px;
+                --chat--window--height: 700px;
+
+                --chat--header-height: auto;
+                --chat--header--padding: var(--chat--spacing);
+                --chat--header--background: var(--chat--color-dark);
+                --chat--header--color: var(--chat--color-light);
+                --chat--header--border-top: none;
+                --chat--header--border-bottom: none;
+                --chat--heading--font-size: 1.2em;
+                --chat--subtitle--font-size: inherit;
+                --chat--subtitle--line-height: 1;
+
+                --chat--textarea--height: 55px;
+
+                --chat--message--font-size: 1rem;
+                --chat--message--padding: var(--chat--spacing);
+                --chat--message--border-radius: var(--chat--border-radius);
+                --chat--message-line-height: 1.8;
+                --chat--message--bot--background: var(--chat--color-white);
+                --chat--message--bot--color: var(--chat--color-dark);
+                --chat--message--bot--border: none;
+                --chat--message--user--background: var(--chat--color-secondary);
+                --chat--message--user--color: var(--chat--color-white);
+                --chat--message--user--border: none;
+                --chat--message--pre--background: rgba(0, 0, 0, 0.05);
+
+                --chat--toggle--background: var(--chat--color-primary);
+                --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
+                --chat--toggle--active--background: var(--chat--color-primary-shade-100);
+                --chat--toggle--color: var(--chat--color-white);
+                --chat--toggle--size: 64px;
+            }
+
+            /* 3) Posição (canto inferior direito) e z-index do launcher/janela */
+            .n8n-chat-launcher,
+            .n8n-chat-window {
+                position: fixed !important;
+                right: 22px !important;   /* mude para 'left: 22px' se quiser no canto esquerdo */
+                bottom: 22px !important;
+                z-index: 9999 !important;
+            }
+
+            /* Ajuste responsivo: reduz janela em telas menores */
+            @media (max-width: 480px) {
+                :root {
+                --chat--window--width: 92vw;
+                --chat--window--height: 70vh;
+                }
+            }
+
+            /* 4) (Opcional) Se quiser sombra extra e radius na janela */
+            .n8n-chat-window {
+                border-radius: 14px !important;
+                box-shadow: 0 14px 44px rgba(0,0,0,.25) !important;
+                overflow: hidden;
+            }
+            </style>
+
+            <!-- 5) (Opcional) Container alvo — útil se preferir modo 'embedded' no futuro -->
+            <div id="n8n-chat"></div>
+
+            <!-- 6) Script do widget + configuração completa -->
+            <script type="module">
+            import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+            createChat({
+                webhookUrl: 'https://webh.autoz8n.com/webhook/5b4b5404-0a7c-450d-bc21-2a9dc1bf5f40/chat', // << troque aqui
+                webhookConfig: {
+                method: 'POST',
+                headers: {
+                    // 'Authorization': 'Bearer ...',
+                    // 'x-custom': 'valor'
+                }
+                },
+                
+                target: '#n8n-chat',      // mantém para compatibilidade; em 'window' o widget cria o launcher
+                mode: 'window',           // 'window' = bolha/janela flutuante | 'embedded' = dentro do container
+                chatInputKey: 'chatInput',
+                chatSessionKey: 'sessionId',
+                loadPreviousSession: true,
+                metadata: {
+                // Qualquer metadado que queira enviar ao workflow (ex.: origem da página)
+                source: window.location.pathname,
+                site: 'Delta Coding'
+                },
+                showWelcomeScreen: false,
+                defaultLanguage: 'en',
+                initialMessages: [
+                 'Meu nome é D-Help! Como posso te ajudar hoje?'
+                ],
+                i18n: {
+                en: {
+                    title: 'Atendimento Delta Coding!',
+                    subtitle: "",
+                    footer: '',
+                    getStarted: 'New Conversation',
+                    inputPlaceholder: 'Type your question..',
+                },
+                // Exemplo PT-BR (ative trocando defaultLanguage: 'pt')
+                pt: {
+                    title: 'Olá! 👋',
+                    subtitle: 'Vamos começar? Estou aqui para te ajudar.',
+                    footer: '',
+                    getStarted: 'Nova conversa',
+                    inputPlaceholder: 'Digite sua pergunta...',
+                }
+                },
+                enableStreaming: false, // true se quiser tokens aparecendo em tempo real
+            });
+            </script>
+		<div class="main-page-wrapper">
+
+			<!-- ===================================================
+				Loading Transition
+			==================================================== 
+			<div id="loader-wrapper">
+				<div id="loader"></div>
+			</div>-->
+
+			
+
+			<!-- 
+			=============================================
+				Theme Header One
+			============================================== 
+			-->
+			<header class="header-one">
+				<div class="top-header">
+					<div class="container clearfix">
+						<div class="logo float-left"><a href="index.html"><img src="images/logo/logo.png" alt=""></a></div>
+						<div class="address-wrapper float-right">
+							<ul>
+								<li class="address">
+									<i class="icon flaticon-placeholder"></i>
+									<h6>Endereço:</h6>
+									<p>Rua Fued Mansur Kfuri 170 - Dom Silvério</p>
+								</li>
+								<li class="address">
+									<i class="icon flaticon-multimedia"></i>
+									<h6>E-mail:</h6>
+									<p>contato@deltacoding.com.br</p>
+								</li>
+								<li class="quotes"><a href="os/abrir_os.php">ORDEM DE SERVIÇO</a></li>
+							</ul>
+						</div> <!-- /.address-wrapper -->
+					</div> <!-- /.container -->
+				</div> <!-- /.top-header -->
+
+				<div class="theme-menu-wrapper">
+					<div class="container">
+						<div class="bg-wrapper clearfix">
+							<!-- ============== Menu Warpper ================ -->
+					   		<div class="menu-wrapper float-left">
+					   			<nav id="mega-menu-holder" class="clearfix">
+								   <ul class="clearfix">
+									    <li class="active"><a href="#">Home</a>
+									    	
+									    </li>
+									    <li><a href="#">Datadoras</a>
+									    	<ul class="dropdown">
+									    		<li><a href="about.html">Importadas</a></li>
+									    		<li><a href="team.html">Nacionais</a></li>
+									       </ul>
+									    </li>
+									    <li><a href="#">Serviços</a>
+									    	<ul class="dropdown">
+									        	<li><a href="service.html">Peças</a></li>
+									        	<li><a href="service-v2.html">Insumos</a></li>
+									       </ul>
+									    </li>
+									    <li><a href="#">Equipamentos Industriais</a>
+
+									    </li>
+									    <li><a href="contact.html">Contato</a></li>
+								   </ul>
+								</nav> <!-- /#mega-menu-holder -->
+					   		</div> <!-- /.menu-wrapper -->
+
+					   		<div class="right-widget float-right">
+					   			<ul>
+					   				<li class="social-icon">
+					   					<ul>
+											<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+										</ul>
+					   				</li>
+					   				<li class="cart-icon">
+					   					<a href="#"><i class="flaticon-tool"></i> <span>2</span></a>
+					   				</li>
+					   				<li class="search-option">
+					   					<div class="dropdown">
+					   						<button type="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search" aria-hidden="true"></i></button>
+											<form action="#" class="dropdown-menu">
+												<input type="text" Placeholder="O que você está buscando">
+												<button><i class="fa fa-search"></i></button>
+											</form>
+					   					</div>
+					   				</li>
+					   			</ul>
+					   		</div> <!-- /.right-widget -->
+						</div> <!-- /.bg-wrapper -->
+					</div> <!-- /.container -->
+				</div> <!-- /.theme-menu-wrapper -->
+			</header> <!-- /.header-one -->
+
+			
+			<!-- 
+			=============================================
+				Theme Main Banner
+			============================================== 
+			-->
+			<div id="theme-main-banner" class="banner-one">
+                <div data-src="images/home/n_slide_1.jpg">
+                    <div class="camera_caption">
+                    <div class="container">
+                        <p class="wow fadeInUp animated">Soluções em marcação e datação industrial</p>
+                        <h1 class="wow fadeInUp animated" data-wow-delay="0.2s">Inovação e Tecnologia <br>para sua Indústria</h1>
+                        <a href="https://wa.me/5531988335786" target="_blank" rel="noopener" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">FALAR NO WHATSAPP</a>
+                    </div>
+                    </div>
+                </div>
+
+                <div data-src="images/home/n_slide_2.jpg">
+                    <div class="camera_caption">
+                    <div class="container">
+                        <p class="wow fadeInUp animated">Equipamentos, peças e insumos</p>
+                        <h1 class="wow fadeInUp animated" data-wow-delay="0.2s">Datadoras TIJ • CIJ • Laser • TTO</h1>
+                        <a href="https://www.deltacoding.com.br/insumos-para-datadoras?sort_by=best_sellers" target="_blank" rel="noopener" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">VER SOLUÇÕES</a>
+                    </div>
+                    </div>
+                </div>
+
+                <div data-src="images/home/n_slide_3.jpg">
+                    <div class="camera_caption">
+                    <div class="container">
+                        <p class="wow fadeInUp animated">Atendimento com custo justo e qualidade</p>
+                        <h1 class="wow fadeInUp animated" data-wow-delay="0.2s">Manutenção &amp; Suporte Especializado</h1>
+                        <a href="https://www.deltacoding.com.br/pecasdatadoras?sort_by=lowest_price" target="_blank" rel="noopener" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">PEÇAS E SUPORTE</a>
+                    </div>
+                    </div>
+                </div>
+                </div> <!-- /#theme-main-banner -->
+			
+			
+			<!-- 
+			=============================================
+				Top Feature
+			============================================== 
+			-->
+			<div class="top-feature section-spacing">
+                <div class="top-features-slide">
+                    <div class="item">
+                    <div class="main-content" style="background:#fafafa;">
+                        <img src="images/icon/1.png" alt="">
+                        <h4><a href="#">Atendimento Próximo</a></h4>
+                        <p>Relacionamento direto com nossos clientes para entender necessidades.</p>
+                    </div>
+                    </div>
+
+                    <div class="item">
+                    <div class="main-content" style="background:#f6f6f6;">
+                        <img src="images/icon/2.png" alt="">
+                        <h4><a href="#">Comunicação Rápida</a></h4>
+                        <p>Suporte ágil via WhatsApp, telefone e e-mail, garantindo respostas rápidas e assertivas.</p>
+                    </div>
+                    </div>
+
+                    <div class="item">
+                    <div class="main-content" style="background:#efefef;">
+                        <img src="images/icon/3.png" alt="">
+                        <h4><a href="#">Rede de Especialistas</a></h4>
+                        <p>Equipe experiente em manutenção, peças e insumos para datadoras TIJ, CIJ, Laser e TTO.</p>
+                    </div>
+                    </div>
+
+                    <div class="item">
+                    <div class="main-content" style="background:#e9e9e9;">
+                        <img src="images/icon/4.png" alt="">
+                        <h4><a href="#">Soluções Inteligentes</a></h4>
+                        <p>Fornecemos equipamentos, insumos e serviços com o melhor custo-benefício.</p>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+
+
+ 
+			<!-- =============================================
+            Sobre a Empresa
+            ============================================== -->
+                <div class="about-compnay section-spacing">
+                <div class="container">
+                    <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <img src="images/home/sobre_empresa.jpg" alt="Delta Coding - Soluções em marcação industrial">
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="text">
+                        <div class="theme-title-one">
+                            <h2>Sobre a Delta Coding</h2>
+                            <p>A Delta Coding é especializada em equipamentos, insumos e serviços de marcação e datação industrial. Atendemos indústrias de diferentes segmentos com soluções em TIJ, CIJ, Laser e TTO, garantindo eficiência, qualidade e custo justo.</p>
+                            <p>Nosso compromisso é oferecer inovação e tecnologia que elevam o desempenho das linhas de produção, sempre com atendimento próximo e suporte técnico especializado.</p>
+                        </div> <!-- /.theme-title-one -->
+                        <ul class="mission-goal clearfix">
+                            <li>
+                            <i class="icon flaticon-star"></i>
+                            
+                            </li>
+                            <li>
+                            <i class="icon flaticon-medal"></i>
+                            
+                            </li>
+                            <li>
+                            <i class="icon flaticon-target"></i>
+                            
+                            </li>
+                        </ul> <!-- /.mission-goal -->
+                        </div> <!-- /.text -->
+                    </div> <!-- /.col- -->
+                    </div> <!-- /.row -->
+                </div> <!-- /.container -->
+                </div> <!-- /.about-compnay -->
+
+
+			<!-- 
+                =============================================
+                Feature Banner
+                ============================================== 
+                -->
+                <div class="feature-banner section-spacing">
+                <div class="opacity">
+                    <div class="container">
+                    <h2>Soluções completas em marcação industrial para mais eficiência na sua produção</h2>
+                    <a href="https://wa.me/5531988335786" target="_blank" rel="noopener" class="theme-button-one">FALE CONOSCO</a>
+                    </div> <!-- /.container -->
+                </div> <!-- /.opacity -->
+                </div> <!-- /.feature-banner -->
+
+
+
+                <!-- 
+                =============================================
+                Nossos Serviços
+                ============================================== 
+                -->
+                <div class="service-style-one section-spacing">
+                <div class="container">
+                    <div class="theme-title-one">
+                    <h2>Nossos Serviços</h2>
+                    <p>Eficiência e qualidade em cada solução de marcação industrial.</p>
+                    </div>
+                    <div class="wrapper">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 col-12">
+                        <div class="single-service">
+                            <div class="img-box"><img src="images/home/servicos_01.jpg" alt="Insumos para datadoras"></div>
+                            <div class="text">
+                            <h5><a href="#">Insumos Originais</a></h5>
+                            <p>Cartuchos, ribbons e fluidos de alta performance.</p>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-xl-4 col-md-6 col-12">
+                        <div class="single-service">
+                            <div class="img-box"><img src="images/home/servicos_02.jpg" alt="Equipamentos industriais"></div>
+                            <div class="text">
+                            <h5><a href="#">Equipamentos</a></h5>
+                            <p>Datadoras modernas para mais produtividade.</p>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-xl-4 col-md-6 col-12">
+                        <div class="single-service">
+                            <div class="img-box"><img src="images/home/servicos_03.jpg" alt="Peças e acessórios"></div>
+                            <div class="text">
+                            <h5><a href="#">Peças & Acessórios</a></h5>
+                            <p>Reposição confiável para sua linha não parar.</p>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-xl-4 col-md-6 col-12">
+                        <div class="single-service">
+                            <div class="img-box"><img src="images/home/servicos_04.jpg" alt="Manutenção preventiva e corretiva"></div>
+                            <div class="text">
+                            <h5><a href="#">Manutenção</a></h5>
+                            <p>Preventiva e corretiva com técnicos especializados.</p>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-xl-4 col-md-6 col-12">
+                        <div class="single-service">
+                            <div class="img-box"><img src="images/home/servicos_05.jpg" alt="Consultoria técnica"></div>
+                            <div class="text">
+                            <h5><a href="#">Consultoria</a></h5>
+                            <p>Orientação técnica para a melhor escolha.</p>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-xl-4 col-md-6 col-12">
+                        <div class="single-service">
+                            <div class="img-box"><img src="images/home/servicos_06.jpg" alt="Suporte rápido e eficiente"></div>
+                            <div class="text">
+                            <h5><a href="#">Suporte Ágil</a></h5>
+                            <p>Atendimento rápido via WhatsApp e telefone.</p>
+                            </div>
+                        </div>
+                        </div>
+
+                    </div>
+                    </div>
+
+                    <div class="contact-text">
+                    <h4>Fale agora com nossa equipe</h4>
+                    <h5><a href="mailto:contato@deltacoding.com.br">contato@deltacoding.com.br</a> (ou) <a href="tel:+553134933910">(31) 3493-3910</a></h5>
+                    </div>
+                </div>
+                </div>
+
+
+
+
+            <!--
+            =====================================================
+            Testimonial Slider
+            =====================================================
+            -->
+            <div class="testimonial-section section-spacing">
+            <div class="overlay">
+                <div class="container">
+                <div class="wrapper">
+                    <div class="bg">
+                    <div class="testimonial-slider">
+
+                        <div class="item">
+                        <p>“Reduzimos paradas de linha com a manutenção da Delta. Atendimento rápido e técnico.”</p>
+                        <div class="name">
+                            <h6>Marcela Duarte</h6>
+                            <span>Coord. de Manutenção, Indústria de Alimentos</span>
+                        </div>
+                        </div>
+
+                        <div class="item">
+                        <p>“Os cartuchos TIJ têm ótima definição e rendimento. Entrega sempre no prazo.”</p>
+                        <div class="name">
+                            <h6>Renato Farias</h6>
+                            <span>Compras, Bebidas &amp; Embalagens</span>
+                        </div>
+                        </div>
+
+                        <div class="item">
+                        <p>“Implementamos CIJ e Laser com suporte total. Projeto limpo e sem surpresas.”</p>
+                        <div class="name">
+                            <h6>Ana Ribeiro</h6>
+                            <span>Eng. de Produção, Cosméticos</span>
+                        </div>
+                        </div>
+
+                    </div> <!-- /.testimonial-slider -->
+                    </div> <!-- /.bg -->
+                </div> <!-- /.wrapper -->
+                </div> <!-- /.container -->
+            </div> <!-- /.overlay -->
+            </div> <!-- /.testimonial-section -->
+
+
+
+			<!--
+                =====================================================
+                Nossa Equipe
+                =====================================================
+                -->
+                <div class="our-team section-spacing">
+                <div class="container">
+                    <div class="theme-title-one">
+                    <h2>Nossa Equipe</h2>
+                    <p>Profissionais dedicados a oferecer soluções completas em codificação industrial.</p>
+                    </div>
+                    <div class="wrapper">
+                    <div class="row">
+
+                        <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="team-member">
+                            <div class="image-box">
+                            <img src="images/team/1.jpg" alt="Equipe Delta Coding">
+                            <div class="overlay">
+                                <div class="hover-content">
+                                <p>Especialista em entender as necessidades dos clientes e propor as melhores soluções.</p>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="text">
+                            <h6>Fernanda Lima</h6>
+                            <span>Consultora Comercial</span>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="team-member">
+                            <div class="image-box">
+                            <img src="images/team/2.jpg" alt="Equipe Delta Coding">
+                            <div class="overlay">
+                                <div class="hover-content">
+                                <p>Responsável por instalações, treinamentos e suporte técnico especializado.</p>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="text">
+                            <h6>Rodrigo Martins</h6>
+                            <span>Engenheiro de Suporte</span>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="team-member">
+                            <div class="image-box">
+                            <img src="images/team/3.jpg" alt="Equipe Delta Coding">
+                            <div class="overlay">
+                                <div class="hover-content">
+                                <p>Coordena a logística e garante que insumos e peças cheguem no prazo certo.</p>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="text">
+                            <h6>Ana Beatriz Souza</h6>
+                            <span>Coordenadora de Operações</span>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="team-member">
+                            <div class="image-box">
+                            <img src="images/team/4.jpg" alt="Equipe Delta Coding">
+                            <div class="overlay">
+                                <div class="hover-content">
+                                <p>Atua no atendimento ao cliente, garantindo suporte ágil no dia a dia.</p>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="text">
+                            <h6>Diego Ferreira</h6>
+                            <span>Analista de Suporte ao Cliente</span>
+                            </div>
+                        </div>
+                        </div>
+
+                    </div> <!-- /.row -->
+                    </div> <!-- /.wrapper -->
+                </div> <!-- /.container -->
+                </div> <!-- /.our-team -->
+
+
+
+			<!--
+                =====================================================
+                Nossos Números
+                =====================================================
+                -->
+                <div class="theme-counter section-spacing">
+                <div class="container">
+                    <div class="bg">
+                    <h6>Resultados que falam por nós</h6>
+                    <h2>Alguns números da Delta Coding</h2>
+
+                    <div class="cunter-wrapper">
+                        <div class="row">
+
+                        <div class="col-md-3 col-6">
+                            <div class="single-counter-box">
+                            <div class="number"><span class="timer" data-from="0" data-to="15" data-speed="1200" data-refresh-interval="5">0</span>+</div>
+                            <p>Anos de Experiência</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-6">
+                            <div class="single-counter-box">
+                            <div class="number"><span class="timer" data-from="0" data-to="500" data-speed="1200" data-refresh-interval="5">0</span>+</div>
+                            <p>Clientes Atendidos</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-6">
+                            <div class="single-counter-box">
+                            <div class="number"><span class="timer" data-from="0" data-to="1200" data-speed="1200" data-refresh-interval="5">0</span>+</div>
+                            <p>Projetos Concluídos</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-6">
+                            <div class="single-counter-box">
+                            <div class="number"><span class="timer" data-from="0" data-to="24" data-speed="1200" data-refresh-interval="5">0</span>h</div>
+                            <p>Suporte Disponível</p>
+                            </div>
+                        </div>
+
+                        </div> <!-- /.row -->
+                    </div> <!-- /.cunter-wrapper -->
+
+                    <a href="https://wa.me/5531988335786" target="_blank" rel="noopener" class="theme-button-one">FALE COM UM ESPECIALISTA</a>
+                    </div> <!-- /.bg -->
+                </div> <!-- /.container -->
+                </div> <!-- /.theme-counter -->
+
+
+
+			<!--
+                =====================================================
+                Solicite um Orçamento
+                =====================================================
+                -->
+                <div class="consultation-form section-spacing">
+                <div class="container">
+                    <div class="theme-title-one">
+                    <h2>Solicite um Orçamento</h2>
+                    <p>Preencha o formulário e nossa equipe entrará em contato rapidamente.</p>
+                    </div>
+                    <div class="clearfix main-content no-gutters row">
+                    <div class="col-xl-6 col-lg-5 col-12"><div class="img-box"></div></div>
+                    <div class="col-xl-6 col-lg-7 col-12">
+                        <div class="form-wrapper">
+                        <form action="#" class="theme-form-one">
+                            <div class="row">
+                            <div class="col-md-6"><input type="text" placeholder="Nome *"></div>
+                            <div class="col-md-6"><input type="text" placeholder="Telefone *"></div>
+                            <div class="col-md-6"><input type="email" placeholder="E-mail *"></div>
+                            <div class="col-md-6">
+                                <select class="form-control" id="exampleSelect1">
+                                <option>Selecione o serviço desejado</option>
+                                <option>Insumos para Datadoras</option>
+                                <option>Equipamentos</option>
+                                <option>Peças & Acessórios</option>
+                                <option>Manutenção Especializada</option>
+                                <option>Consultoria Técnica</option>
+                                <option>Suporte ao Cliente</option>
+                                </select>
+                            </div>
+                            <div class="col-12"><textarea placeholder="Mensagem"></textarea></div>
+                            </div>
+                            <button class="theme-button-one">ENVIAR SOLICITAÇÃO</button>
+                        </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+
+			<!--
+                =====================================================
+                Footer
+                =====================================================
+                -->
+                <footer class="theme-footer-one">
+                <div class="top-footer">
+                    <div class="container">
+                    <div class="row">
+                        <!-- Sobre -->
+                        <div class="col-xl-3 col-lg-4 col-sm-6 about-widget">
+                        <h6 class="title">Sobre a Delta Coding</h6>
+                        <p>Manutenção, insumos e equipamentos para marcação e datação industrial (TIJ, CIJ, Laser e TTO) com foco em qualidade e custo justo.</p>
+                        <div class="queries">
+                            <i class="flaticon-phone-call"></i> Atendimento:
+                            <a href="tel:+553134933910">(31) 3493-3910</a>
+                        </div>
+                        </div>
+
+                        <!-- Recent posts (mantém as IMAGENS originais) -->
+                        <div class="col-xl-4 col-lg-3 col-sm-6 footer-recent-post">
+                        <h6 class="title">Últimos Posts</h6>
+                        <ul>
+                            <li class="clearfix">
+                            <img src="images/blog/1.jpg" alt="" class="float-left">
+                            <div class="post float-left">
+                                <a href="#">Boas práticas de impressão TIJ na linha</a>
+                                <div class="date"><i class="fa fa-calendar-o" aria-hidden="true"></i> Set 15, 2025</div>
+                            </div>
+                            </li>
+                            <li class="clearfix">
+                            <img src="images/blog/2.jpg" alt="" class="float-left">
+                            <div class="post float-left">
+                                <a href="#">Quando escolher CIJ, Laser ou TTO?</a>
+                                <div class="date"><i class="fa fa-calendar-o" aria-hidden="true"></i> Ago 28, 2025</div>
+                            </div>
+                            </li>
+                        </ul>
+                        </div>
+
+                        <!-- Soluções / links -->
+                        <div class="col-xl-2 col-lg-3 col-sm-6 footer-list">
+                        <h6 class="title">Soluções</h6>
+                        <ul>
+                            <li><a href="https://www.deltacoding.com.br/insumos-para-datadoras">Insumos</a></li>
+                            <li><a href="https://www.deltacoding.com.br/pecasdatadoras?sort_by=lowest_price">Peças</a></li>
+                            <li><a href="https://www.deltacoding.com.br/datadoras-importacao?sort_by=best_sellers">Datadoras</a></li>
+                            <li><a href="https://www.deltacoding.com.br/equipamentos-industrias?sort_by=best_sellers">Equipamentos</a></li>
+                            <li><a href="https://wa.me/5531988335786" target="_blank" rel="noopener">Suporte</a></li>
+                        </ul>
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="col-xl-3 col-lg-2 col-sm-6 footer-newsletter">
+                        <h6 class="title">Newsletter</h6>
+                        <form action="#">
+                            <input type="text" placeholder="Nome *">
+                            <input type="email" placeholder="E-mail *">
+                            <button class="theme-button-one">ASSINAR</button>
+                        </form>
+                        <small>Receba novidades.</small>
+                        </div>
+                    </div> <!-- /.row -->
+                    </div> <!-- /.container -->
+                </div> <!-- /.top-footer -->
+
+                <div class="bottom-footer">
+                    <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                        <p>© 2025 Delta Coding e Equipamentos LTDA • CNPJ: 15.808.019/0001-36</p>
+                        </div>
+                        <div class="col-md-6 col-12">
+                        <ul>
+                            <li><a href="https://www.deltacoding.com.br/atendimento/rastreio">Rastreio</a></li>
+                            <li><a href="https://www.deltacoding.com.br/atendimento/politica-de-cookies">Política de Cookies</a></li>
+                            <li><a href="https://wa.me/5531988335786" target="_blank" rel="noopener">Fale Conosco</a></li>
+                        </ul>
+                        </div>
+                    </div>
+                    </div>
+                </div> <!-- /.bottom-footer -->
+                </footer> <!-- /.theme-footer -->
+
+			
+
+	        
+
+	        <!-- Scroll Top Button -->
+			<button class="scroll-top tran3s">
+				<i class="fa fa-angle-up" aria-hidden="true"></i>
+			</button>
+			
+
+
+		<!-- Optional JavaScript _____________________________  -->
+
+    	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    	<!-- jQuery -->
+		<script src="vendor/jquery.2.2.3.min.js"></script>
+		<!-- Popper js -->
+		<script src="vendor/popper.js/popper.min.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<!-- Camera Slider -->
+		<script src='vendor/Camera-master/scripts/jquery.mobile.customized.min.js'></script>
+	    <script src='vendor/Camera-master/scripts/jquery.easing.1.3.js'></script> 
+	    <script src='vendor/Camera-master/scripts/camera.min.js'></script>
+	    <!-- menu  -->
+		<script src="vendor/menu/src/js/jquery.slimmenu.js"></script>
+		<!-- WOW js -->
+		<script src="vendor/WOW-master/dist/wow.min.js"></script>
+		<!-- owl.carousel -->
+		<script src="vendor/owl-carousel/owl.carousel.min.js"></script>
+		<!-- js count to -->
+		<script src="vendor/jquery.appear.js"></script>
+		<script src="vendor/jquery.countTo.js"></script>
+		<!-- Fancybox -->
+		<script src="vendor/fancybox/dist/jquery.fancybox.min.js"></script>
+
+		<!-- Theme js -->
+		<script src="js/theme.js"></script>
+		</div> <!-- /.main-page-wrapper -->
+	</body>
+</html>
