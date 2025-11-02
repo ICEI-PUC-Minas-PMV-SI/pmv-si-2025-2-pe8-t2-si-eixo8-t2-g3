@@ -250,12 +250,12 @@ Sistema utilizado pelos colaboradores da Delta Coding: Link:
 **  
 **
 
-1.  **Cadastrar Cliente**
+  **Cadastrar Cliente**
 
 <img width="684" height="678" alt="image" src="https://github.com/user-attachments/assets/250a3fc6-b8e3-4e6f-9941-b96fbaa41e4b" />
 
 
-1.  **Visualizar, editar e excluir Clientes**
+  **Visualizar, editar e excluir Clientes**
 
 <img width="830" height="509" alt="image" src="https://github.com/user-attachments/assets/20693675-e156-4459-8a2e-82b49c480f42" />
 
@@ -263,12 +263,12 @@ Sistema utilizado pelos colaboradores da Delta Coding: Link:
 **  
 **
 
-1.  **Cadastrar Ordem de Serviço**
+  **Cadastrar Ordem de Serviço**
 
 <img width="886" height="409" alt="image" src="https://github.com/user-attachments/assets/717a6e3a-c50f-4ecf-891e-f5931a12254b" />
 
 
-1.  **Visualizar, editar, fechar e excluir Ordem de Serviço**
+  **Visualizar, editar, fechar e excluir Ordem de Serviço**
 
 <img width="886" height="409" alt="image" src="https://github.com/user-attachments/assets/df7e0c0e-24ac-4c9f-9733-5817870d2b0f" />
 
