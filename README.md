@@ -7,6 +7,7 @@
 `SEMESTRE: 8º`
 
 O presente trabalho, desenvolvido como requisito para o curso de Sistemas de Informação, concentra-se na criação de uma solução tecnológica sob medida para a Delta Coding e Equipamentos Ltda., uma empresa de Belo Horizonte/MG que atua no segmento de codificação e marcação industrial.
+
 O ponto de partida para esta empreitada foi a aplicação de um framework de Inteligência Competitiva (IC), direcionado primariamente à melhoria da administração de serviços e à consolidação de informações que se encontravam dispersas. Para tal, o projeto envolveu uma análise aprofundada dos fluxos de trabalho atuais, como a comunicação de serviço via WhatsApp, e a condução de estudos de mercado, culminando na proposta de um sistema integrado capaz de automatizar dados gerenciais e subsidiar decisões estratégicas.
 
 ## Integrantes
