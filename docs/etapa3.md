@@ -146,9 +146,9 @@ OS e prioridades do dia.
 
 ### 3.2.3 Ferramentas/plataformas
 
-> Com o objetivo de criar um sistema web simples para cadastro de
-> clientes, abertura e gestão de Ordens de Serviço (OS), foram
-> escolhidas as seguintes ferramentas:
+ Com o objetivo de criar um sistema web simples para cadastro de
+ clientes, abertura e gestão de Ordens de Serviço (OS), foram
+ escolhidas as seguintes ferramentas:
 
 **  
 **
