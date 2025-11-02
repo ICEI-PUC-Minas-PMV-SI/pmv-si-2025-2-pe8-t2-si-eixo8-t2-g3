@@ -1,4 +1,4 @@
-3. Desenvolvimento de soluções de SI
+3 Desenvolvimento de soluções de SI
 ====================================
 
 3.1 Conexão com o Plano de IC e Planejamento da Solução
