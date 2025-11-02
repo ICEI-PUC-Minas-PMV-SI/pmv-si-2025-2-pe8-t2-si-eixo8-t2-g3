@@ -286,7 +286,8 @@ estruturado para comunicações via WhatsApp representa vulnerabilidade
 adicional, considerando a criticidade destas informações para
 continuidade operacional.
 
-<img src="media/image2.png" style="width:5.90625in;height:5.78125in" />
+<img width="886" height="867" alt="image" src="https://github.com/user-attachments/assets/996118df-c98d-4ffa-b90e-ca1f812642a2" />
+
 
 Figura 1 - Diagrama BPMN do Processo de Abertura de Ordem de Serviço
 
