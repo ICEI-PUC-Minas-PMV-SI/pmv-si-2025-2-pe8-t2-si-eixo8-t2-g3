@@ -1,4 +1,4 @@
-1. Apresentação da empresa, mercado, processos e sistemas 
+1 Apresentação da empresa, mercado, processos e sistemas 
 ==========================================================
 
 A presente seção tem como objetivo apresentar a empresa objeto de
